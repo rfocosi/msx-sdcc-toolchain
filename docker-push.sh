@@ -6,7 +6,6 @@ if [ -z "$VERSION" ]; then
   exit 1
 fi
 
-LOCAL_TAG=`docker ps -a | grep msx-sdcc-toolchain | awk '{ print $2 }'`
-
-docker tag $LOCAL_TAG rfocosi/msx-sdcc-toolchain:$VERSION
+docker build . -t msx-sdcc-toolchain
+docker tag msx-sdcc-toolchain rfocosi/msx-sdcc-toolchain:$VERSION
 docker push rfocosi/msx-sdcc-toolchain:$VERSION

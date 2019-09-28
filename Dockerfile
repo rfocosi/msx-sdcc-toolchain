@@ -28,16 +28,16 @@ RUN mkdir -p $SDCC_LIB_MAIN/z80 && \
     mkdir -p $SDCC_INCLUDE && \
     mkdir -p $WORKSPACE_ROOT
 
-ADD https://github.com/rfocosi/msx-utils/raw/master/fusion-c/fusion-c-include.tar.bz2 /tmp/
+ADD https://github.com/rfocosi/msx-sdcc-toolchain/raw/master/fusion-c/fusion-c-include.tar.bz2 /tmp/
 RUN tar jxf /tmp/fusion-c-include.tar.bz2 -C $SDCC_INCLUDE_MAIN/z80/
 
-ADD https://github.com/rfocosi/msx-utils/raw/master/fusion-c/fusion-c-lib.tar.bz2 /tmp/
+ADD https://github.com/rfocosi/msx-sdcc-toolchain/raw/master/fusion-c/fusion-c-lib.tar.bz2 /tmp/
 RUN tar jxf /tmp/fusion-c-lib.tar.bz2 -C $SDCC_LIB_MAIN/z80/
 
-ADD https://github.com/rfocosi/msx-utils/raw/master/bin/msx-toolchain-bin.tar.bz2 /tmp/
+ADD https://github.com/rfocosi/msx-sdcc-toolchain/raw/master/bin/msx-toolchain-bin.tar.bz2 /tmp/
 RUN tar jxf /tmp/msx-toolchain-bin.tar.bz2 -C /usr/local/bin/
 
-ADD https://github.com/rfocosi/msx-utils/raw/master/bin/hex2bin-2.5.tar.bz2 /tmp/
+ADD https://github.com/rfocosi/msx-sdcc-toolchain/raw/master/bin/hex2bin-2.5.tar.bz2 /tmp/
 RUN tar -jxf /tmp/hex2bin-2.5.tar.bz2 --strip=1 -C /usr/local/bin/ Hex2bin-2.5/hex2bin Hex2bin-2.5/mot2bin
 
 RUN chmod +x /usr/local/bin/build
