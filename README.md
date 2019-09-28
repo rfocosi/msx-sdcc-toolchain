@@ -1,5 +1,5 @@
-# msx-utils
-Small applications to use with MSX
+# msx-sdcc-toolchain
+Docker based MSX SDCC Toolchain
 
 ## Requirements
 
