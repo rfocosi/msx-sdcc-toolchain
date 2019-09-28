@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  sdcc:
+    build: .
+    volumes:
+      - ${PROJECT_WORKSPACE}:/workspace
+      - ${PROJECT_EXTRA_LIBS}:/extra-lib
+      - ${PROJECT_EXTRA_INCLUDES}:/extra-include
