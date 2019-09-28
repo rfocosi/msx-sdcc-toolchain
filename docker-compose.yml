@@ -2,7 +2,7 @@ version: '3'
 
 services:
   sdcc:
-    build: .
+    image: rfocosi/msx-sdcc-toolchain:1.0
     volumes:
       - ${PROJECT_WORKSPACE}:/workspace
       - ${PROJECT_EXTRA_LIBS}:/extra-lib

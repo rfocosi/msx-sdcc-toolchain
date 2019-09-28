@@ -10,8 +10,16 @@ Small applications to use with MSX
 
 ### Setup
 
-##### Create your project `.env`:
+##### Download `docker-compose.yml`:
 
+Download `docker-composer.yml` to your project root:
+```
+> curl -L "https://raw.githubusercontent.com/rfocosi/msx-sdcc-toolchain/master/docker-compose.yml" -O docker-compose.yml
+```
+
+##### Create a `.env`:
+
+Create your `.env` on your project's root:
 ```
 > cat <<EOF > .env
 PROJECT_WORKSPACE=./workspace
@@ -21,9 +29,9 @@ EOF
 ```
 
 Where:
-- PROJECT_WORKSPACE: Your project source files' root directory
-- PROJECT_EXTRA_LIBS: Directory of your library files (\*.lib, \*.rel)
-- PROJECT_EXTRA_INCLUDES: Directory of your include files (\*.h)
+- `PROJECT_WORKSPACE`: Your project source files' root directory
+- `PROJECT_EXTRA_LIBS`: Directory of your library files, if any (\*.lib, \*.rel)
+- `PROJECT_EXTRA_INCLUDES`: Directory of your include files, if any (\*.h)
 
 ##### Build the container:
 
@@ -33,19 +41,19 @@ Where:
 
 ##### Get Info
 
-`docker-compose run sdcc info`
+`docker-compose run --rm sdcc info`
 
 ##### Building
 
 To build a source file, run:
 
-`docker-compose run sdcc build <source.c>`
+`docker-compose run --rm sdcc build <source.c>`
 
 Ex.:
 
 `docker-compose run sdcc build src/file.c`
 
-Ps.: The root folder is `$PROJECT_WORKSPACE`
+Ps.: The root directory is `$PROJECT_WORKSPACE`
 
 ###### SDCC Parameters
 The SDCC parameters can be added to a `<source_file_name>.params` file
