@@ -6,13 +6,13 @@ echo
 hex2bin 2>/dev/null | head -n1
 echo
 echo "- Lib files:"
-ls $SDCC_LIB_Z80
+ls -C $SDCC_LIB_Z80
 echo
 echo "- Extra lib files:"
-ls $SDCC_LIB
+ls -C $SDCC_LIB
 echo
 echo "- Include files:"
-ls $SDCC_INCLUDE_Z80
+ls -C $SDCC_INCLUDE_Z80
 echo
 echo "- Extra include files:"
-ls $SDCC_INCLUDE
+ls -C $SDCC_INCLUDE
