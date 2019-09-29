@@ -8,42 +8,78 @@ Docker based MSX SDCC Toolchain
 
 ## How to use
 
-### Setup
+### Docker Run
 
-##### Download `docker-compose.yml`:
-
-Download `docker-composer.yml` to your project root:
+#### Get Info
 ```
-> curl -L "https://raw.githubusercontent.com/rfocosi/msx-sdcc-toolchain/master/docker-compose.yml" -O docker-compose.yml
+docker run --rm \
+      rfocosi/msx-sdcc-toolchain:latest \
+      info
 ```
 
-##### Create a `.env`:
-
-Create your `.env` on your project's root:
+#### Build
 ```
-> cat <<EOF > .env
+docker run --rm \
+      -v {/host-workspace/}:/workspace/ \
+      -v {/host-extra-lib/}:/extra-lib/ \
+      -v {/host-extra-include/}:/extra-include/ \
+      rfocosi/msx-sdcc-toolchain:latest \
+      build file.c
+```
+
+#### Clean
+Removes `build\` directory
+```
+docker run --rm \
+      -v {/host-workspace/}:/workspace/ \
+      rfocosi/msx-sdcc-toolchain:latest \
+      clean
+```
+
+### Setup with docker-compose
+
+- Create a `docker-composer.yml` on your project's root:
+
+```
+version: '3'
+
+services:
+  sdcc:
+    image: rfocosi/msx-sdcc-toolchain:latest
+    volumes:
+      - ${PROJECT_WORKSPACE}:/workspace
+      - ${PROJECT_EXTRA_LIBS}:/extra-lib
+      - ${PROJECT_EXTRA_INCLUDES}:/extra-include
+```
+
+- Create a `.env` on your project's root:
+
+```
+# Your project source files' root directory
 PROJECT_WORKSPACE=./workspace
+
+# Directory of your library files, if any (\*.lib, \*.rel)
 PROJECT_EXTRA_LIBS=./share/lib
+
+# Directory of your include files, if any (\*.h)
 PROJECT_EXTRA_INCLUDES=./share/include
-EOF
 ```
 
-Where:
-- `PROJECT_WORKSPACE`: Your project source files' root directory
-- `PROJECT_EXTRA_LIBS`: Directory of your library files, if any (\*.lib, \*.rel)
-- `PROJECT_EXTRA_INCLUDES`: Directory of your include files, if any (\*.h)
+- Pull the container:
 
-##### Build the container:
+`docker-compose pull`
 
-`docker-compose build`
+#### Running
 
-### Running
-
-##### Get Info
+###### Get Info
 
 `docker-compose run --rm sdcc info`
 
-##### Building
+###### Clean
+
+`docker-compose run --rm sdcc clean`
+
+###### Building
 
 To build a source file, run:
 
@@ -51,11 +87,11 @@ To build a source file, run:
 
 Ex.:
 
-`docker-compose run sdcc build src/file.c`
+`docker-compose run --rm sdcc build src/file.c`
 
 Ps.: The root directory is `$PROJECT_WORKSPACE`
 
-###### SDCC Parameters
+### SDCC Parameters
 The SDCC parameters can be added to a `<source_file_name>.params` file
 
 Ex.:
