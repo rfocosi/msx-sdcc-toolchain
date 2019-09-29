@@ -27,6 +27,16 @@ docker run --rm \
       build file.c
 ```
 
+#### Compile ASM
+```
+docker run --rm \
+      -v {/host-workspace/}:/workspace/ \
+      -v {/host-extra-lib/}:/extra-lib/ \
+      -v {/host-extra-include/}:/extra-include/ \
+      rfocosi/msx-sdcc-toolchain:latest \
+      sdasz80 -o file.asm
+```
+
 #### Clean
 Removes `build\` directory
 ```
@@ -71,15 +81,11 @@ PROJECT_EXTRA_INCLUDES=./share/include
 
 #### Running
 
-###### Get Info
+##### Get Info
 
 `docker-compose run --rm sdcc info`
 
-###### Clean
-
-`docker-compose run --rm sdcc clean`
-
-###### Building
+##### Building
 
 To build a source file, run:
 
@@ -90,6 +96,16 @@ Ex.:
 `docker-compose run --rm sdcc build src/file.c`
 
 Ps.: The root directory is `$PROJECT_WORKSPACE`
+
+##### Compile ASM
+```
+docker-compose run --rm sdcc sdasz80 -o file.asm
+```
+
+##### Clean
+
+`docker-compose run --rm sdcc clean`
+
 
 ### SDCC Parameters
 The SDCC parameters can be added to a `<source_file_name>.params` file
