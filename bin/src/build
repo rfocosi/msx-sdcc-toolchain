@@ -32,10 +32,9 @@ if [ -f "$IHX_FILE" ]; then
 
   BIN_PATH=$WORKSPACE_ROOT/build/
 
-  [ ! -d $BIN_PATH ] && mkdir -p $BIN_PATH && chmod 777 $BIN_PATH
+  [ ! -d $BIN_PATH ] && mkdir -p $BIN_PATH
 
   if [ -d "$BIN_PATH" ]; then
-    chmod 777 $COM_FILE
     mv $COM_FILE $BIN_PATH
   else
     BINPATH=""

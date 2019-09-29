@@ -40,10 +40,10 @@ RUN tar jxf /tmp/msx-toolchain-bin.tar.bz2 -C /usr/local/bin/
 ADD https://github.com/rfocosi/msx-sdcc-toolchain/raw/master/bin/hex2bin-2.5.tar.bz2 /tmp/
 RUN tar -jxf /tmp/hex2bin-2.5.tar.bz2 --strip=1 -C /usr/local/bin/ Hex2bin-2.5/hex2bin Hex2bin-2.5/mot2bin
 
-RUN chmod +x /usr/local/bin/build
-RUN chmod +x /usr/local/bin/info
-
-RUN rm -rf /tmp/*
+RUN chmod +x /usr/local/bin/build && \
+    chmod +x /usr/local/bin/clean && \
+    chmod +x /usr/local/bin/info && \
+    rm -rf /tmp/*
 
 WORKDIR ${WORKSPACE_ROOT}
 

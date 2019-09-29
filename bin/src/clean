@@ -1,0 +1,5 @@
+#!/bin/bash
+
+BIN_PATH=$WORKSPACE_ROOT/build/
+
+[ -d $BIN_PATH ] && rm -rf $BIN_PATH && echo "Cleaned: $BIN_PATH"
