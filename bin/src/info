@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "MSX Toolchain V1.0"
+echo "MSX Toolchain V1.1"
 echo
 sdcc -v
 echo

@@ -1,48 +1,41 @@
 #!/bin/bash
 
-SRC_FILE_PATH=$1
+SRC_FILE_PARAM=$1
 
-if [ -z "$SRC_FILE_PATH" ]; then
+if [ -z "$SRC_FILE_PARAM" ]; then
   echo "Usage: `basename $0` <source_file_path>.c"
   exit 1
 fi
 
-if [ ! -f "$SRC_FILE_PATH" ]; then
-  echo "Not found $SRC_FILE_PATH"
+if [ ! -f "$SRC_FILE_PARAM" ]; then
+  echo "Not found $SRC_FILE_PARAM"
   exit 1
 fi
+
+SRC_FILE_PATH=`realpath $SRC_FILE_PARAM | sed 's/\/workspace\///'`
 
 SRC_PATH=`dirname $SRC_FILE_PATH`
 SRC_FILE=`basename $SRC_FILE_PATH`
 
-cd $SRC_PATH
+cd $WORKSPACE_ROOT
+
+BUILD_ROOT=$WORKSPACE_ROOT/build/
+FILE_BUILD_PATH=`echo $BUILD_ROOT$SRC_FILE_PATH | sed 's/\.c//g'`
 
 FILE_NAME=`echo $SRC_FILE | sed 's/\.c//g'`
-SRC_FILE_PARAMS=`grep '^.\+' $FILE_NAME.params | head -n 1 | envsubst`
+SRC_FILE_PARAMS=`grep '^.\+' $SRC_PATH/$FILE_NAME.params | head -n 1 | envsubst`
 IHX_FILE=$FILE_NAME.ihx
 COM_FILE=$FILE_NAME.com
 
-echo "sdcc $SRC_FILE_PARAMS $SRC_FILE"
-echo
+[ ! -d $FILE_BUILD_PATH ] && mkdir -p $FILE_BUILD_PATH
 
-sdcc $SRC_FILE_PARAMS $SRC_FILE
+sdcc $SRC_FILE_PARAMS $SRC_FILE_PATH -o $FILE_BUILD_PATH/
 
-if [ -f "$IHX_FILE" ]; then
-  hex2bin -e com $IHX_FILE
+if [ -f "$FILE_BUILD_PATH/$IHX_FILE" ]; then
+  TARGET_PATH=$WORKSPACE_ROOT/target/$SRC_PATH
+  [ ! -d $TARGET_PATH ] && mkdir -p $TARGET_PATH
 
-  BIN_PATH=$WORKSPACE_ROOT/build/
+  objcopy -I ihex -O binary $FILE_BUILD_PATH/$IHX_FILE $TARGET_PATH/$COM_FILE
 
-  [ ! -d $BIN_PATH ] && mkdir -p $BIN_PATH
-
-  if [ -d "$BIN_PATH" ]; then
-    mv $COM_FILE $BIN_PATH
-  else
-    BINPATH=""
-  fi
-
-  echo
-  echo "Final file: build/$COM_FILE"
+  echo "Final file: $TARGET_PATH/$COM_FILE"
 fi
-
-rm -f $FILE_NAME.rel $FILE_NAME.asm
-rm -f *.ihx *.lk *.lst *.map *.noi *.sym
