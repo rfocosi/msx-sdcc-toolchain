@@ -1,6 +1,7 @@
 #!/bin/bash
+clean
 
-find /workspace/ -type f -name "*.asm" -exec sdasz80 -o {} \;
-find /workspace/ -type f -name "*.rel" -exec mv {} /extra-lib/ \;
+find $SRC_PATH -type f -name "*.asm" -exec sdasz80 -o {} \;
+find $SRC_PATH -type f -name "*.rel" -exec mv {} $SDCC_LIB/ \;
 
-find /workspace/ -type f -name "*.c" -exec build {} \;
+find $SRC_PATH -type f -name "*.c" -exec build {} \;

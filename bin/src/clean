@@ -1,7 +1,4 @@
 #!/bin/bash
 
-BUILD_PATH=$WORKSPACE_ROOT/build/
-TARGET_PATH=$WORKSPACE_ROOT/target/
-
 [ -d $BUILD_PATH ] && rm -rf $BUILD_PATH && echo "$BUILD_PATH deleted!"
 [ -d $TARGET_PATH ] && rm -rf $TARGET_PATH && echo "$TARGET_PATH deleted!"

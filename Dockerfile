@@ -2,9 +2,15 @@ FROM debian:bullseye
 MAINTAINER Roberto Focosi, roberto.focosi@msx2cas.com
 
 ENV WORKSPACE_ROOT=/workspace
+ENV HOME=${WORKSPACE_ROOT}
+
+ENV SRC_PATH=${WORKSPACE_ROOT}/src
+ENV BUILD_PATH=$WORKSPACE_ROOT/build
+ENV TARGET_PATH=$WORKSPACE_ROOT/target
+
 ARG SDCC_LIB_MAIN_PATH=/usr/share/sdcc
 
-RUN apt-get update && apt-get install -y make sdcc gettext-base binutils bzip2
+RUN apt-get update && apt-get install -y sdcc gettext-base binutils
 
 ENV SDCC_INCLUDE_MAIN=${SDCC_LIB_MAIN_PATH}/include
 ENV SDCC_LIB_MAIN=${SDCC_LIB_MAIN_PATH}/lib
@@ -26,7 +32,7 @@ RUN mkdir -p $SDCC_LIB_MAIN/z80 && \
     mkdir -p $SDCC_INCLUDE_MAIN/z80 && \
     mkdir -p $SDCC_LIB && \
     mkdir -p $SDCC_INCLUDE && \
-    mkdir -p $WORKSPACE_ROOT
+    mkdir -p $SRC_PATH
 
 ADD fusion-c/fusion-c-include.tar.bz2 $SDCC_INCLUDE_MAIN/z80/
 

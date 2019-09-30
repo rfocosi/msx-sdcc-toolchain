@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "MSX Toolchain V1.1"
+echo "MSX Toolchain V1.2"
 echo
 sdcc -v
 echo
@@ -16,3 +16,7 @@ ls -C $SDCC_INCLUDE_Z80
 echo
 echo "- Extra include files:"
 ls -C $SDCC_INCLUDE
+echo
+echo "- Enviroment variables:"
+env
+echo
