@@ -2,7 +2,6 @@ FROM debian:bullseye
 MAINTAINER Roberto Focosi, roberto.focosi@msx2cas.com
 
 ENV WORKSPACE_ROOT=/workspace
-ENV HOME=${WORKSPACE_ROOT}
 
 ENV SRC_PATH=${WORKSPACE_ROOT}/src
 ENV BUILD_PATH=$WORKSPACE_ROOT/build
@@ -41,8 +40,10 @@ ADD fusion-c/fusion-c-lib.tar.bz2 $SDCC_LIB_MAIN/z80/
 ADD bin/src/* /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/build && \
+    chmod +x /usr/local/bin/build-all && \
     chmod +x /usr/local/bin/clean && \
     chmod +x /usr/local/bin/info && \
+    chmod +x /usr/local/bin/sdasm && \
     rm -rf /tmp/*
 
 WORKDIR ${WORKSPACE_ROOT}

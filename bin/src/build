@@ -21,7 +21,7 @@ SRC_FILE_NAME=`basename $SRC_FILE_RES_PATH`
 
 cd $WORKSPACE_ROOT
 
-FILE_BUILD_PATH=`echo $BUILD_PATH/$SRC_FILE_REL_PATH | sed 's/\.c//g'`
+FILE_BUILD_PATH=`echo $BUILD_PATH/$SRC_FILE_REL_PATH | sed 's/\.[^.]\+$//g'`
 
 FILE_NAME=`echo $SRC_FILE_NAME | sed 's/\.c//g'`
 SRC_FILE_PARAMS=`grep '^.\+' $SRC_FILE_PATH/$FILE_NAME.params | head -n 1 | envsubst`

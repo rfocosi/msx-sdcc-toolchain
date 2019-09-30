@@ -8,6 +8,10 @@ Docker based MSX SDCC Toolchain
 
 ## How to use
 
+- Pull the container:
+
+`docker-compose pull rfocosi/msx-sdcc-toolchain:latest`
+
 ### Docker Run
 
 #### Get Info
@@ -37,14 +41,15 @@ docker run --rm \
       build-all
 ```
 
-#### Compile ASM
+#### Assembly
 ```
 docker run --rm \
+      -e SDAS_BIN=sdasz80 \
       -v {/host-workspace/}:/workspace/ \
       -v {/host-extra-lib/}:/extra-lib/ \
       -v {/host-extra-include/}:/extra-include/ \
       rfocosi/msx-sdcc-toolchain:latest \
-      sdasz80 -o file.asm
+      sdasm file.asm
 ```
 
 #### Clean
@@ -66,6 +71,8 @@ version: '3'
 services:
   sdcc:
     image: rfocosi/msx-sdcc-toolchain:latest
+    environment:
+      - SDAS_BIN=sdasz80
     volumes:
       - ${PROJECT_WORKSPACE}:/workspace
       - ${PROJECT_EXTRA_LIBS}:/extra-lib
@@ -85,10 +92,6 @@ PROJECT_EXTRA_LIBS=./share/lib
 PROJECT_EXTRA_INCLUDES=./share/include
 ```
 
-- Pull the container:
-
-`docker-compose pull`
-
 #### Running
 
 ##### Get Info
@@ -105,15 +108,12 @@ To build all project's sources:
 
 `docker-compose run --rm sdcc build-all`
 
-Ex.:
+Ps.: The root directory is `$PROJECT_WORKSPACE\src`
 
-`docker-compose run --rm sdcc build src/file.c`
+##### Assembly
 
-Ps.: The root directory is `$PROJECT_WORKSPACE`
-
-##### Compile ASM
 ```
-docker-compose run --rm sdcc sdasz80 -o file.asm
+docker-compose run --rm sdcc sdasm file.asm
 ```
 
 ##### Clean
