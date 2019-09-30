@@ -1,0 +1,6 @@
+#!/bin/bash
+
+find /workspace/ -type f -name "*.asm" -exec sdasz80 -o {} \;
+find /workspace/ -type f -name "*.rel" -exec mv {} /extra-lib/ \;
+
+find /workspace/ -type f -name "*.c" -exec build {} \;
