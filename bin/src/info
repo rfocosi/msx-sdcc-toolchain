@@ -3,8 +3,6 @@ echo "MSX Toolchain V1.2"
 echo
 sdcc -v
 echo
-hex2bin 2>/dev/null | head -n1
-echo
 echo "- Lib files:"
 ls -C $SDCC_LIB_Z80
 echo
