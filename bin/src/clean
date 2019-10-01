@@ -1,4 +1,0 @@
-#!/bin/bash
-
-[ -d $BUILD_PATH ] && rm -rf $BUILD_PATH && echo "$BUILD_PATH deleted!"
-[ -d $TARGET_PATH ] && rm -rf $TARGET_PATH && echo "$TARGET_PATH deleted!"

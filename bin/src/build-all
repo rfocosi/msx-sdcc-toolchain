@@ -1,7 +1,0 @@
-#!/bin/bash
-clean
-
-find $SRC_PATH -type f -name "*.asm" -exec sdasz80 -o {} \;
-find $SRC_PATH -type f -name "*.rel" -exec mv {} $SDCC_LIB/ \;
-
-find $SRC_PATH -type f -name "*.c" -exec build {} \;
