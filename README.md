@@ -3,25 +3,42 @@ Docker based MSX SDCC Toolchain
 
 ## Requirements
 
-- Docker (https://docs.docker.com/install/)
-- docker-compose (https://docs.docker.com/compose/install/)
+- [Docker](https://docs.docker.com/install/)
+- [docker-compose](https://docs.docker.com/compose/install/)
 
 ## How to use
 
-- Pull the container:
+### SDCC Parameters
+The SDCC parameters can be added to a `<source_file_name>.params` file
 
-`docker-compose pull rfocosi/msx-sdcc-toolchain:latest`
+Ex.:
+
+```
+> ls
+file.c
+file.params
+```
+
+`file.params`:
+```
+SDCC_ARGS="--code-loc 0x180 --data-loc 0 -mz80 --disable-warning 196 --no-std-crt0 $SDCC_LIB_Z80/crt0_msxdos_advanced.rel $SDCC_LIB_Z80/printf.rel $SDCC_LIB_Z80/putchar_msxdos.rel asm.lib fusion.lib"
+SRC_HEX_FILE="$FILE_NAME.ihx"
+TARGET_BIN_FILE="$FILE_NAME.com"
+```
+
+Ps.: You can use environment variables on `.params` file. To get a list of available variables, execute `info` command.
 
 ### Docker Run
 
-#### Get Info
+#### Info
 ```
 docker run --rm \
       rfocosi/msx-sdcc-toolchain:latest \
       info
 ```
 
-#### Build
+#### Building
+To build a single source file, run:
 ```
 docker run --rm \
       -v {/host-workspace/}:/workspace/ \
@@ -31,7 +48,7 @@ docker run --rm \
       build file.c
 ```
 
-#### Build All
+To build all project's sources:
 ```
 docker run --rm \
       -v {/host-workspace/}:/workspace/ \
@@ -53,7 +70,7 @@ docker run --rm \
 ```
 
 #### Clean
-Removes `build\` directory
+Removes `build\` and `target\` directories
 ```
 docker run --rm \
       -v {/host-workspace/}:/workspace/ \
@@ -94,19 +111,25 @@ PROJECT_EXTRA_INCLUDES=./share/include
 
 #### Running
 
-##### Get Info
+##### Info
 
-`docker-compose run --rm sdcc info`
+```
+docker-compose run --rm sdcc info
+```
 
 ##### Building
 
-To build a source file, run:
+To build a single source file, run:
 
-`docker-compose run --rm sdcc build <source.c>`
+```
+docker-compose run --rm sdcc build <source.c>
+```
 
 To build all project's sources:
 
-`docker-compose run --rm sdcc build-all`
+```
+docker-compose run --rm sdcc build-all
+```
 
 Ps.: The root directory is `$PROJECT_WORKSPACE\src`
 
@@ -118,21 +141,6 @@ docker-compose run --rm sdcc sdasm file.asm
 
 ##### Clean
 
-`docker-compose run --rm sdcc clean`
-
-
-### SDCC Parameters
-The SDCC parameters can be added to a `<source_file_name>.params` file
-
-Ex.:
-
 ```
-> ls
-file.c
-file.params
-
-> cat file.params
---code-loc 0x180 --data-loc 0 -mz80 --disable-warning 196 --no-std-crt0 $SDCC_LIB_Z80/crt0_msxdos_advanced.rel $SDCC_LIB_Z80/printf.rel $SDCC_LIB_Z80/putchar_msxdos.rel asm.lib fusion.lib
+docker-compose run --rm sdcc clean
 ```
-
-Ps.: You can use the environment variables on `.params` file.
