@@ -1,7 +1,7 @@
 FROM rfocosi/sdcc-toolchain:latest
 MAINTAINER Roberto Focosi, roberto.focosi@msx2cas.com
 
-ENV TOOLCHAIN_VERSION=2.0-MSX
+ENV TOOLCHAIN_VERSION=2.1-MSX
 
 ENV SDCC_LIB_Z80=${SDCC_LIB_MAIN}/z80
 ENV SDCC_INCLUDE_Z80=${SDCC_INCLUDE_MAIN}/z80
