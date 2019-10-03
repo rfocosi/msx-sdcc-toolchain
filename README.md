@@ -19,11 +19,17 @@ file.c
 file.params
 ```
 
-`file.params`:
+- For executable files:
 ```
-SDCC_ARGS="--code-loc 0x180 --data-loc 0 -mz80 --disable-warning 196 --no-std-crt0 $SDCC_LIB_Z80/crt0_msxdos_advanced.rel $SDCC_LIB_Z80/printf.rel $SDCC_LIB_Z80/putchar_msxdos.rel asm.lib fusion.lib"
-SRC_HEX_FILE="$FILE_NAME.ihx"
+SDCC_ARGS="--code-loc 0x180 --data-loc 0 -mz80 --disable-warning 196 --no-std-crt0 $SDCC_LIB/crt0_msxdos_advanced.rel $SDCC_LIB/printf.rel $SDCC_LIB/putchar_msxdos.rel asm.lib fusion.lib"
 TARGET_BIN_FILE="$FILE_NAME.com"
+```
+
+- For library files:
+```
+SDCC_ARGS="--code-loc 0x180 --data-loc 0 -mz80 --disable-warning 196 --no-std-crt0"
+TARGET_LIB_FILE="$FILE_NAME.lib"
+```
 ```
 
 Ps.: You can use environment variables on `.params` file. To get a list of available variables, execute `info` command.
