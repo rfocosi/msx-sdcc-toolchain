@@ -1,4 +1,4 @@
-ARG FROM_VERSION=1.3
+ARG FROM_VERSION=1.3-SDCC-3.8.0
 
 FROM rfocosi/sdcc-toolchain:${FROM_VERSION}
 MAINTAINER Roberto Focosi, roberto.focosi@msx2cas.com
