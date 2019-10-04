@@ -1,5 +1,5 @@
 # msx-sdcc-toolchain
-Docker based MSX SDCC Toolchain
+Docker-based MSX SDCC Toolchain
 
 ## Requirements
 
@@ -30,7 +30,6 @@ TARGET_BIN_FILE="$FILE_NAME.com"
 SDCC_ARGS="--code-loc 0x180 --data-loc 0 -mz80 --disable-warning 196 --no-std-crt0"
 TARGET_LIB_FILE="$FILE_NAME.lib"
 ```
-```
 
 Ps.: You can use environment variables on `.params` file. To get a list of available variables, execute `info` command.
 
@@ -51,7 +50,7 @@ docker run --rm \
       -v {/host-extra-lib/}:/extra-lib/ \
       -v {/host-extra-include/}:/extra-include/ \
       rfocosi/msx-sdcc-toolchain:latest \
-      build file.c
+      build "file.c"
 ```
 
 To build all project's sources:
@@ -61,7 +60,7 @@ docker run --rm \
       -v {/host-extra-lib/}:/extra-lib/ \
       -v {/host-extra-include/}:/extra-include/ \
       rfocosi/msx-sdcc-toolchain:latest \
-      build-all
+      build "*.c"
 ```
 
 #### Assembly
@@ -128,13 +127,13 @@ docker-compose run --rm sdcc info
 To build a single source file, run:
 
 ```
-docker-compose run --rm sdcc build <source.c>
+docker-compose run --rm sdcc build "file.c"
 ```
 
 To build all project's sources:
 
 ```
-docker-compose run --rm sdcc build-all
+docker-compose run --rm sdcc build "*.c"
 ```
 
 Ps.: The root directory is `$PROJECT_WORKSPACE\src`
