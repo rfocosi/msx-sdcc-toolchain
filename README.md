@@ -15,8 +15,12 @@ Ex.:
 
 ```
 > ls
+asm.s
+asm.params
 file.c
 file.params
+other.asm
+other.params
 ```
 
 - For executable files:
@@ -71,7 +75,18 @@ docker run --rm \
       -v {/host-extra-lib/}:/extra-lib/ \
       -v {/host-extra-include/}:/extra-include/ \
       rfocosi/msx-sdcc-toolchain:latest \
-      sdasm file.asm
+      sdasm "asm.s"
+```
+
+To build all:
+```
+docker run --rm \
+      -e SDAS_BIN=sdasz80 \
+      -v {/host-workspace/}:/workspace/ \
+      -v {/host-extra-lib/}:/extra-lib/ \
+      -v {/host-extra-include/}:/extra-include/ \
+      rfocosi/msx-sdcc-toolchain:latest \
+      sdasm "*.s"
 ```
 
 #### Clean
@@ -141,7 +156,12 @@ Ps.: The root directory is `$PROJECT_WORKSPACE\src`
 ##### Assembly
 
 ```
-docker-compose run --rm sdcc sdasm file.asm
+docker-compose run --rm sdcc sdasm "asm.s"
+```
+
+To build all:
+```
+docker-compose run --rm sdcc sdasm "*.s"
 ```
 
 ##### Clean
